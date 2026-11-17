@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RuApk</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: #e8f4f8;
+            --primary-blue: #007aff;
+            --text-dark: #1c1c1e;
+            --text-gray: #8e8e93;
+            --card-bg: #ffffff;
+        }
+        * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+        body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
+
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 16px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--text-dark); }
+        .logo span { color: var(--primary-blue); }
+        .menu-btn { background: white; border: none; width: 44px; height: 44px; border-radius: 12px; font-size: 20px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); cursor: pointer; }
+
+        .search-container { padding: 0 16px 20px; }
+        .search-box { background: white; border-radius: 16px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+        .search-box input { border: none; outline: none; font-size: 16px; width: 100%; color: var(--text-dark); background: transparent; }
+
+        .section-title { padding: 0 16px 12px; font-size: 14px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
+        .section-title h2 { font-size: 24px; color: var(--text-dark); text-transform: none; letter-spacing: normal; }
+        .see-all { color: var(--primary-blue); font-weight: 600; font-size: 14px; cursor: pointer; }
+        .badge-count { background: #e1f0ff; color: var(--primary-blue); width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 14px; }
+
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 20px; }
+        .app-card { background: var(--card-bg); border-radius: 20px; padding: 16px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; cursor: pointer; transition: transform 0.1s; }
+        .app-card:active { transform: scale(0.98); }
+        .app-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 30px; margin-bottom: 12px; }
+        .app-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .app-category { font-size: 13px; color: var(--text-gray); margin-bottom: 16px; }
+        .app-rating { position: absolute; top: 16px; right: 16px; background: #fff7e6; color: #d48806; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 12px; display: flex; align-items: center; gap: 4px; }
+        .app-open { color: var(--primary-blue); font-weight: 600; font-size: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+
+        .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 20px; }
+        .category-card { background: white; border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); cursor: pointer; }
+        .category-card:active { transform: scale(0.98); }
+        .cat-icon { width: 40px; height: 40px; border-radius: 12px; background: #f0f4f8; display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0; }
+        .cat-name { font-weight: 600; font-size: 15px; flex-grow: 1; }
+        .cat-arrow { color: var(--text-gray); font-size: 12px; }
+
+        .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 12px 0 24px; border-radius: 24px 24px 0 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-gray); font-size: 12px; font-weight: 500; cursor: pointer; }
+        .nav-item.active { color: var(--primary-blue); }
+        .nav-icon { font-size: 24px; }
+
+        .sidebar { position: fixed; top: 0; left: -100%; width: 85%; height: 100%; background: white; z-index: 1000; transition: left 0.3s ease; padding: 20px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
+        .sidebar.open { left: 0; box-shadow: 5px 0 30px rgba(0,0,0,0.2); }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 14px; background: #f8f9fa; border-radius: 12px; font-weight: 500; font-size: 15px; cursor: pointer; }
+        .sidebar-link .arrow { margin-left: auto; color: #ccc; }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; }
+        .overlay.open { display: block; }
+
+        .fab-support { position: fixed; bottom: 100px; right: 20px; background: var(--primary-blue); width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: white; box-shadow: 0 4px 15px rgba(0,122,255,0.4); z-index: 101; cursor: pointer; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Модалка для приложения */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: flex-end; }
+        .modal-overlay.open { display: flex; }
+        .modal-content { background: white; width: 100%; border-radius: 24px 24px 0 0; padding: 24px; max-height: 80vh; overflow-y: auto; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-close { background: #f0f0f0; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .modal-app-icon { width: 80px; height: 80px; border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 40px; margin-bottom: 16px; }
+        .modal-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+        .modal-cat { font-size: 14px; color: var(--text-gray); margin-bottom: 16px; }
+        .modal-desc { font-size: 15px; line-height: 1.5; color: #444; margin-bottom: 24px; }
+        .btn-download { width: 100%; background: var(--primary-blue); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
+        .btn-instruction { width: 100%; background: #f0f4f8; color: var(--text-dark); border: none; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">App<span>Box</span></div>
+            <button class="menu-btn" style="width: 36px; height: 36px; box-shadow: none; background: #f0f0f0;" onclick="toggleMenu()">✕</button>
+        </div>
+        <div class="search-box" style="box-shadow: none; background: #f8f9fa; padding: 10px 16px; margin-bottom: 8px;">
+            <span>🔍</span> <span style="color: var(--text-gray);">Поиск приложений</span>
+        </div>
+        <div class="sidebar-link" onclick="closeSidebarAndSwitch('home')">🏠 Главная <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="closeSidebarAndSwitch('search')">⊞ Все приложения <span class="arrow">›</span></div>
+        <div style="font-size: 12px; color: var(--text-gray); margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">КАТЕГОРИИ</div>
+        <div class="sidebar-link">🍔 Еда и напитки <span class="arrow">›</span></div>
+        <div class="sidebar-link">❤️ Здоровье <span class="arrow">›</span></div>
+        <div class="sidebar-link">🎮 Игры <span class="arrow">›</span></div>
+        <div class="sidebar-link">📚 Образование <span class="arrow">›</span></div>
+        <div class="sidebar-link">💬 Общение <span class="arrow">›</span></div>
+        <div class="sidebar-link">🛍️ Покупки <span class="arrow">›</span></div>
+        <div class="sidebar-link">🧳 Путешествия <span class="arrow">›</span></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">Ru<span>Apk</span></div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <main id="tab-home" class="tab-content active">
+        <div class="search-container">
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" placeholder="Поиск приложений">
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>Популярное</h2>
+            <span class="see-all" onclick="alert('Показываем все популярные приложения')">Все →</span>
+        </div>
+
+        <div class="app-grid">
+            <div class="app-card" onclick="openAppModal('Mail', 'Полезные инструменты', '4.9', '📧', '#007aff', 'Почтовый клиент для удобной работы с электронной почтой прямо с телефона.')">
+                <div class="app-rating">⭐ 4.9</div>
+                <div class="app-icon" style="background: #007aff; color: white;">📧</div>
+                <div class="app-name">Mail</div>
+                <div class="app-category">Полезные инструменты</div>
+                <div class="app-open">Открыть <span>→</span></div>
+            </div>
+            <div class="app-card" onclick="openAppModal('Авито', 'Покупки', '4.9', '🛍️', '#ff3b30', 'Крупнейшая площадка объявлений: покупайте и продавайте с удобством.')">
+                <div class="app-rating">⭐ 4.9</div>
+                <div class="app-icon" style="background: #ff3b30; color: white;">🛍️</div>
+                <div class="app-name">Авито</div>
+                <div class="app-category">Покупки</div>
+                <div class="app-open">Открыть <span>→</span></div>
+            </div>
+            <div class="app-card" onclick="openAppModal('Яндекс Карты', 'Транспорт', '4.8', '🗺️', '#fc3f1d', 'Навигация по городу, пробки, общественный транспорт и подробные карты.')">
+                <div class="app-rating">⭐ 4.8</div>
+                <div class="app-icon" style="background: #fc3f1d; color: white;">🗺️</div>
+                <div class="app-name">Яндекс Карты</div>
+                <div class="app-category">Транспорт</div>
+                <div class="app-open">Открыть <span>→</span></div>
+            </div>
+            <div class="app-card" onclick="openAppModal('ВКонтакте', 'Общение', '4.9', '🅥', '#0077ff', 'Социальная сеть для общения, музыки, видео и новостей.')">
+                <div class="app-rating">⭐ 4.9</div>
+                <div class="app-icon" style="background: #0077ff; color: white;">🅥</div>
+                <div class="app-name">ВКонтакте</div>
+                <div class="app-category">Общение</div>
+                <div class="app-open">Открыть <span>→</span></div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>Категории</h2>
+            <div class="badge-count">12</div>
+        </div>
+
+        <div class="category-grid">
+            <div class="category-card" onclick="alert('Категория: Еда и напитки')"><div class="cat-icon">🍔</div><div class="cat-name">Еда и напитки</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="alert('Категория: Здоровье')"><div class="cat-icon">❤️</div><div class="cat-name">Здоровье</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="alert('Категория: Игры')"><div class="cat-icon">🎮</div><div class="cat-name">Игры</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="alert('Категория: Образование')"><div class="cat-icon">📚</div><div class="cat-name">Образование</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="alert('Категория: Общение')"><div class="cat-icon">💬</div><div class="cat-name">Общение</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="alert('Категория: Покупки')"><div class="cat-icon">🛍️</div><div class="cat-name">Покупки</div><div class="cat-arrow">›</div></div>
+        </div>
+    </main>
+
+    <main id="tab-search" class="tab-content">
+        <div style="padding: 20px;">
+            <h2 style="margin-bottom: 20px;">Поиск</h2>
+            <div class="search-box" style="margin-bottom: 20px;">
+                <span>🔍</span>
+                <input type="text" placeholder="Введите название...">
+            </div>
+            <p style="color: var(--text-gray); text-align: center; margin-top: 40px;">Здесь будут результаты поиска</p>
+        </div>
+    </main>
+
+    <main id="tab-menu" class="tab-content">
+        <div style="padding: 20px;">
+            <div style="font-size: 12px; color: var(--text-gray); font-weight: 600; margin-bottom: 8px;">COMMUNITY</div>
+            <h2 style="font-size: 28px; margin-bottom: 20px;">Отзывы и оценки</h2>
+
+            <div style="background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 16px; font-size: 18px;">Оставить отзыв</h3>
+                <div id="stars" style="display: flex; gap: 8px; margin-bottom: 16px;">
+                    <div class="star" onclick="setRating(1)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
+                    <div class="star" onclick="setRating(2)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
+                    <div class="star" onclick="setRating(3)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
+                    <div class="star" onclick="setRating(4)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
+                    <div class="star" onclick="setRating(5)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
+                </div>
+                <textarea placeholder="Что понравилось, а что нет?" style="width: 100%; height: 100px; border: 1px solid #e0e0e0; border-radius: 16px; padding: 12px; font-size: 14px; resize: none; outline: none; margin-bottom: 16px; font-family: inherit;"></textarea>
+                <button onclick="alert('Спасибо за отзыв! (демо)')" style="width: 100%; background: var(--primary-blue); color: white; border: none; padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer;">Сохранить отзыв</button>
+            </div>
+
+            <div style="background: white; border-radius: 20px; padding: 40px 20px; text-align: center;">
+                <div style="width: 56px; height: 56px; background: #fff7e6; border-radius: 16px; display: inline-flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 16px;">⭐</div>
+                <h3 style="margin-bottom: 8px; font-size: 18px;">Пока нет отзывов</h3>
+                <p style="color: var(--text-gray); font-size: 14px;">Отзывы пользователей появятся здесь.</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="fab-support" onclick="alert('Открытие чата поддержки')">💬</div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchTab('home', this)"><span class="nav-icon">🏠</span><span>Главная</span></div>
+        <div class="nav-item" onclick="switchTab('search', this)"><span class="nav-icon">🔍</span><span>Поиск</span></div>
+        <div class="nav-item" onclick="switchTab('menu', this)"><span class="nav-icon">☰</span><span>Меню</span></div>
+    </nav>
+
+    <div class="modal-overlay" id="appModal" onclick="if(event.target===this) closeAppModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div></div>
+                <button class="modal-close" onclick="closeAppModal()">✕</button>
+            </div>
+            <div class="modal-app-icon" id="modalIcon"></div>
+            <div class="modal-title" id="modalTitle"></div>
+            <div class="modal-cat" id="modalCat"></div>
+            <div class="modal-desc" id="modalDesc"></div>
+            <button class="btn-download" onclick="alert('Скачивание... (демо)')">Скачать приложение</button>
+            <button class="btn-instruction" onclick="alert('Инструкция по установке (демо)')">📦 Инструкция по установке</button>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.expand();
+            tg.setHeaderColor('#e8f4f8');
+            tg.setBackgroundColor('#e8f4f8');
+        }
+
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
+        function closeSidebarAndSwitch(tabId) {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(el => el.classList.remove('active'));
+            const tabIndex = tabId === 'home' ? 0 : tabId === 'search' ? 1 : 2;
+            navItems[tabIndex].classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        function openAppModal(name, cat, rating, icon, bgColor, desc) {
+            document.getElementById('modalTitle').textContent = name;
+            document.getElementById('modalCat').textContent = cat + ' · ⭐ ' + rating;
+            document.getElementById('modalDesc').textContent = desc;
+            const iconEl = document.getElementById('modalIcon');
+            iconEl.textContent = icon;
+            iconEl.style.background = bgColor;
+            iconEl.style.color = 'white';
+            document.getElementById('appModal').classList.add('open');
+        }
+
+        function closeAppModal() {
+            document.getElementById('appModal').classList.remove('open');
+        }
+
+        function setRating(val) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < val) {
+                    star.style.background = '#fff7e6';
+                    star.style.color = '#d48806';
+                } else {
+                    star.style.background = '#f0f0f0';
+                    star.style.color = 'inherit';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
