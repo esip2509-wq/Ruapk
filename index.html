@@ -27,21 +27,20 @@
 
         .section-title { padding: 0 16px 12px; font-size: 14px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center; }
         .section-title h2 { font-size: 24px; color: var(--text-dark); text-transform: none; letter-spacing: normal; }
-        .see-all { color: var(--primary-blue); font-weight: 600; font-size: 14px; cursor: pointer; }
         .badge-count { background: #e1f0ff; color: var(--primary-blue); width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 14px; }
 
         .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 20px; }
         .app-card { background: var(--card-bg); border-radius: 20px; padding: 16px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; cursor: pointer; transition: transform 0.1s; }
-        .app-card:active { transform: scale(0.98); }
+        .app-card:active { transform: scale(0.97); }
         .app-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 30px; margin-bottom: 12px; }
-        .app-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .app-name { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
         .app-category { font-size: 13px; color: var(--text-gray); margin-bottom: 16px; }
         .app-rating { position: absolute; top: 16px; right: 16px; background: #fff7e6; color: #d48806; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 12px; display: flex; align-items: center; gap: 4px; }
         .app-open { color: var(--primary-blue); font-weight: 600; font-size: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
 
         .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 20px; }
         .category-card { background: white; border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); cursor: pointer; }
-        .category-card:active { transform: scale(0.98); }
+        .category-card:active { transform: scale(0.97); }
         .cat-icon { width: 40px; height: 40px; border-radius: 12px; background: #f0f4f8; display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0; }
         .cat-name { font-weight: 600; font-size: 15px; flex-grow: 1; }
         .cat-arrow { color: var(--text-gray); font-size: 12px; }
@@ -64,19 +63,49 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Модалка для приложения */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: flex-end; }
         .modal-overlay.open { display: flex; }
-        .modal-content { background: white; width: 100%; border-radius: 24px 24px 0 0; padding: 24px; max-height: 80vh; overflow-y: auto; animation: slideUp 0.3s ease; }
+        .modal-content { background: white; width: 100%; border-radius: 24px 24px 0 0; padding: 24px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.3s ease; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; position: sticky; top: -24px; background: white; padding: 8px 0; z-index: 10; }
         .modal-close { background: #f0f0f0; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
         .modal-app-icon { width: 80px; height: 80px; border-radius: 20px; display: flex; justify-content: center; align-items: center; font-size: 40px; margin-bottom: 16px; }
         .modal-title { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
         .modal-cat { font-size: 14px; color: var(--text-gray); margin-bottom: 16px; }
         .modal-desc { font-size: 15px; line-height: 1.5; color: #444; margin-bottom: 24px; }
         .btn-download { width: 100%; background: var(--primary-blue); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
-        .btn-instruction { width: 100%; background: #f0f4f8; color: var(--text-dark); border: none; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; }
+
+        .reviews-section { border-top: 1px solid #eee; padding-top: 20px; margin-top: 10px; }
+        .reviews-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .review-item { background: #f8f9fa; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .review-user { font-weight: 600; font-size: 13px; color: var(--primary-blue); }
+        .review-stars { color: #d48806; font-size: 14px; }
+        .review-text { font-size: 14px; color: #444; line-height: 1.4; }
+        .review-form { background: #f8f9fa; border-radius: 16px; padding: 16px; margin-top: 16px; }
+        .stars-input { display: flex; gap: 6px; margin-bottom: 12px; }
+        .star-input { width: 36px; height: 36px; background: #f0f0f0; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; cursor: pointer; }
+        .star-input.active { background: #fff7e6; color: #d48806; }
+        .review-form textarea { width: 100%; height: 80px; border: 1px solid #e0e0e0; border-radius: 12px; padding: 10px; font-size: 14px; resize: none; outline: none; margin-bottom: 10px; font-family: inherit; }
+        .review-form button { width: 100%; background: var(--primary-blue); color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; }
+
+        .support-chat { background: #f8f9fa; border-radius: 16px; padding: 16px; margin-bottom: 16px; max-height: 300px; overflow-y: auto; }
+        .chat-msg-bot { background: white; border-radius: 14px 14px 14px 4px; padding: 12px 16px; font-size: 14px; line-height: 1.4; margin-bottom: 10px; max-width: 90%; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+        .quick-questions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+        .quick-q { background: #e1f0ff; color: var(--primary-blue); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; }
+        .support-input-row { display: flex; gap: 8px; }
+        .support-input-row input { flex: 1; border: 1px solid #e0e0e0; border-radius: 12px; padding: 14px; font-size: 15px; outline: none; }
+        .support-input-row button { background: var(--primary-blue); color: white; border: none; width: 48px; border-radius: 12px; font-size: 18px; cursor: pointer; }
+
+        /* Экран инструкции */
+        .instruction-screen { display: none; }
+        .instruction-screen.active { display: block; }
+        .instruction-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .back-btn { background: #f0f0f0; border: none; width: 40px; height: 40px; border-radius: 12px; font-size: 18px; cursor: pointer; display: flex; justify-content: center; align-items: center; }
+        .instruction-title { font-size: 22px; font-weight: 800; }
+        .instruction-body { font-size: 15px; line-height: 1.6; color: #333; }
+        .instruction-body ol { padding-left: 20px; margin: 12px 0; }
+        .instruction-body li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -93,13 +122,11 @@
         <div class="sidebar-link" onclick="closeSidebarAndSwitch('home')">🏠 Главная <span class="arrow">›</span></div>
         <div class="sidebar-link" onclick="closeSidebarAndSwitch('search')">⊞ Все приложения <span class="arrow">›</span></div>
         <div style="font-size: 12px; color: var(--text-gray); margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">КАТЕГОРИИ</div>
-        <div class="sidebar-link">🍔 Еда и напитки <span class="arrow">›</span></div>
-        <div class="sidebar-link">❤️ Здоровье <span class="arrow">›</span></div>
-        <div class="sidebar-link">🎮 Игры <span class="arrow">›</span></div>
-        <div class="sidebar-link">📚 Образование <span class="arrow">›</span></div>
-        <div class="sidebar-link">💬 Общение <span class="arrow">›</span></div>
-        <div class="sidebar-link">🛍️ Покупки <span class="arrow">›</span></div>
-        <div class="sidebar-link">🧳 Путешествия <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="filterByCategory('Соцсети'); closeSidebarAndSwitch('home');">💬 Соцсети <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="filterByCategory('Мессенджеры'); closeSidebarAndSwitch('home');">✉️ Мессенджеры <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="filterByCategory('Финансы'); closeSidebarAndSwitch('home');">💳 Финансы <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="filterByCategory('Работа'); closeSidebarAndSwitch('home');">💼 Работа <span class="arrow">›</span></div>
+        <div class="sidebar-link" onclick="filterByCategory('Развлечения'); closeSidebarAndSwitch('home');">🎬 Развлечения <span class="arrow">›</span></div>
     </div>
 
     <header class="header">
@@ -111,99 +138,55 @@
         <div class="search-container">
             <div class="search-box">
                 <span>🔍</span>
-                <input type="text" placeholder="Поиск приложений">
+                <input type="text" id="search-input-home" placeholder="Поиск приложений" oninput="handleSearch(this.value, 'home')">
             </div>
         </div>
 
         <div class="section-title">
             <h2>Популярное</h2>
-            <span class="see-all" onclick="alert('Показываем все популярные приложения')">Все →</span>
+            <span style="color: var(--primary-blue); font-weight: 600; font-size: 14px;" onclick="filterByCategory(null)">Все →</span>
         </div>
 
-        <div class="app-grid">
-            <div class="app-card" onclick="openAppModal('Mail', 'Полезные инструменты', '4.9', '📧', '#007aff', 'Почтовый клиент для удобной работы с электронной почтой прямо с телефона.')">
-                <div class="app-rating">⭐ 4.9</div>
-                <div class="app-icon" style="background: #007aff; color: white;">📧</div>
-                <div class="app-name">Mail</div>
-                <div class="app-category">Полезные инструменты</div>
-                <div class="app-open">Открыть <span>→</span></div>
-            </div>
-            <div class="app-card" onclick="openAppModal('Авито', 'Покупки', '4.9', '🛍️', '#ff3b30', 'Крупнейшая площадка объявлений: покупайте и продавайте с удобством.')">
-                <div class="app-rating">⭐ 4.9</div>
-                <div class="app-icon" style="background: #ff3b30; color: white;">🛍️</div>
-                <div class="app-name">Авито</div>
-                <div class="app-category">Покупки</div>
-                <div class="app-open">Открыть <span>→</span></div>
-            </div>
-            <div class="app-card" onclick="openAppModal('Яндекс Карты', 'Транспорт', '4.8', '🗺️', '#fc3f1d', 'Навигация по городу, пробки, общественный транспорт и подробные карты.')">
-                <div class="app-rating">⭐ 4.8</div>
-                <div class="app-icon" style="background: #fc3f1d; color: white;">🗺️</div>
-                <div class="app-name">Яндекс Карты</div>
-                <div class="app-category">Транспорт</div>
-                <div class="app-open">Открыть <span>→</span></div>
-            </div>
-            <div class="app-card" onclick="openAppModal('ВКонтакте', 'Общение', '4.9', '🅥', '#0077ff', 'Социальная сеть для общения, музыки, видео и новостей.')">
-                <div class="app-rating">⭐ 4.9</div>
-                <div class="app-icon" style="background: #0077ff; color: white;">🅥</div>
-                <div class="app-name">ВКонтакте</div>
-                <div class="app-category">Общение</div>
-                <div class="app-open">Открыть <span>→</span></div>
-            </div>
-        </div>
+        <div class="app-grid" id="app-grid-home"></div>
 
         <div class="section-title">
             <h2>Категории</h2>
-            <div class="badge-count">12</div>
+            <div class="badge-count">6</div>
         </div>
 
         <div class="category-grid">
-            <div class="category-card" onclick="alert('Категория: Еда и напитки')"><div class="cat-icon">🍔</div><div class="cat-name">Еда и напитки</div><div class="cat-arrow">›</div></div>
-            <div class="category-card" onclick="alert('Категория: Здоровье')"><div class="cat-icon">❤️</div><div class="cat-name">Здоровье</div><div class="cat-arrow">›</div></div>
-            <div class="category-card" onclick="alert('Категория: Игры')"><div class="cat-icon">🎮</div><div class="cat-name">Игры</div><div class="cat-arrow">›</div></div>
-            <div class="category-card" onclick="alert('Категория: Образование')"><div class="cat-icon">📚</div><div class="cat-name">Образование</div><div class="cat-arrow">›</div></div>
-            <div class="category-card" onclick="alert('Категория: Общение')"><div class="cat-icon">💬</div><div class="cat-name">Общение</div><div class="cat-arrow">›</div></div>
-            <div class="category-card" onclick="alert('Категория: Покупки')"><div class="cat-icon">🛍️</div><div class="cat-name">Покупки</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Соцсети')"><div class="cat-icon">💬</div><div class="cat-name">Соцсети</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Мессенджеры')"><div class="cat-icon">✉️</div><div class="cat-name">Мессенджеры</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Финансы')"><div class="cat-icon">💳</div><div class="cat-name">Финансы</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Работа')"><div class="cat-icon">💼</div><div class="cat-name">Работа</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Развлечения')"><div class="cat-icon">🎬</div><div class="cat-name">Развлечения</div><div class="cat-arrow">›</div></div>
+            <div class="category-card" onclick="filterByCategory('Все')"><div class="cat-icon">📱</div><div class="cat-name">Все</div><div class="cat-arrow">›</div></div>
         </div>
     </main>
 
     <main id="tab-search" class="tab-content">
-        <div style="padding: 20px;">
+        <div style="padding: 20px 16px;">
             <h2 style="margin-bottom: 20px;">Поиск</h2>
             <div class="search-box" style="margin-bottom: 20px;">
                 <span>🔍</span>
-                <input type="text" placeholder="Введите название...">
+                <input type="text" id="search-input-search" placeholder="Введите название..." oninput="handleSearch(this.value, 'search')">
             </div>
-            <p style="color: var(--text-gray); text-align: center; margin-top: 40px;">Здесь будут результаты поиска</p>
+            <div id="search-results" style="display: flex; flex-direction: column; gap: 10px;"></div>
         </div>
     </main>
 
     <main id="tab-menu" class="tab-content">
-        <div style="padding: 20px;">
+        <div style="padding: 20px 16px;">
             <div style="font-size: 12px; color: var(--text-gray); font-weight: 600; margin-bottom: 8px;">COMMUNITY</div>
             <h2 style="font-size: 28px; margin-bottom: 20px;">Отзывы и оценки</h2>
 
-            <div style="background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px;">
-                <h3 style="margin-bottom: 16px; font-size: 18px;">Оставить отзыв</h3>
-                <div id="stars" style="display: flex; gap: 8px; margin-bottom: 16px;">
-                    <div class="star" onclick="setRating(1)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
-                    <div class="star" onclick="setRating(2)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
-                    <div class="star" onclick="setRating(3)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
-                    <div class="star" onclick="setRating(4)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
-                    <div class="star" onclick="setRating(5)" style="width: 44px; height: 44px; background: #f0f0f0; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer;">⭐</div>
-                </div>
-                <textarea placeholder="Что понравилось, а что нет?" style="width: 100%; height: 100px; border: 1px solid #e0e0e0; border-radius: 16px; padding: 12px; font-size: 14px; resize: none; outline: none; margin-bottom: 16px; font-family: inherit;"></textarea>
-                <button onclick="alert('Спасибо за отзыв! (демо)')" style="width: 100%; background: var(--primary-blue); color: white; border: none; padding: 16px; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer;">Сохранить отзыв</button>
-            </div>
-
-            <div style="background: white; border-radius: 20px; padding: 40px 20px; text-align: center;">
-                <div style="width: 56px; height: 56px; background: #fff7e6; border-radius: 16px; display: inline-flex; justify-content: center; align-items: center; font-size: 24px; margin-bottom: 16px;">⭐</div>
-                <h3 style="margin-bottom: 8px; font-size: 18px;">Пока нет отзывов</h3>
-                <p style="color: var(--text-gray); font-size: 14px;">Отзывы пользователей появятся здесь.</p>
+            <div style="background: white; border-radius: 20px; padding: 20px;">
+                <div id="all-reviews-list"></div>
             </div>
         </div>
     </main>
 
-    <div class="fab-support" onclick="alert('Открытие чата поддержки')">💬</div>
+    <div class="fab-support" onclick="openSupport()">💬</div>
 
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="switchTab('home', this)"><span class="nav-icon">🏠</span><span>Главная</span></div>
@@ -211,18 +194,85 @@
         <div class="nav-item" onclick="switchTab('menu', this)"><span class="nav-icon">☰</span><span>Меню</span></div>
     </nav>
 
+    <!-- Модалка приложения -->
     <div class="modal-overlay" id="appModal" onclick="if(event.target===this) closeAppModal()">
         <div class="modal-content">
-            <div class="modal-header">
-                <div></div>
-                <button class="modal-close" onclick="closeAppModal()">✕</button>
+            <!-- Основной экран приложения -->
+            <div id="app-main-screen">
+                <div class="modal-header">
+                    <div></div>
+                    <button class="modal-close" onclick="closeAppModal()">✕</button>
+                </div>
+                <div class="modal-app-icon" id="modalIcon"></div>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-cat" id="modalCat"></div>
+                <div class="modal-desc" id="modalDesc"></div>
+                <button class="btn-download" onclick="showInstruction()">📥 Скачать приложение</button>
+
+                <div class="reviews-section">
+                    <div class="reviews-title">Отзывы</div>
+                    <div id="app-reviews-list"></div>
+
+                    <div class="review-form">
+                        <h4 style="margin-bottom: 10px; font-size: 15px;">Оставить отзыв</h4>
+                        <div class="stars-input" id="stars-input">
+                            <div class="star-input" onclick="setModalRating(1)">⭐</div>
+                            <div class="star-input" onclick="setModalRating(2)">⭐</div>
+                            <div class="star-input" onclick="setModalRating(3)">⭐</div>
+                            <div class="star-input" onclick="setModalRating(4)">⭐</div>
+                            <div class="star-input" onclick="setModalRating(5)">⭐</div>
+                        </div>
+                        <textarea id="review-text" placeholder="Что понравилось, а что нет?"></textarea>
+                        <button onclick="submitReview()">Сохранить отзыв</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-app-icon" id="modalIcon"></div>
-            <div class="modal-title" id="modalTitle"></div>
-            <div class="modal-cat" id="modalCat"></div>
-            <div class="modal-desc" id="modalDesc"></div>
-            <button class="btn-download" onclick="alert('Скачивание... (демо)')">Скачать приложение</button>
-            <button class="btn-instruction" onclick="alert('Инструкция по установке (демо)')">📦 Инструкция по установке</button>
+
+            <!-- Экран инструкции -->
+            <div id="instruction-screen" class="instruction-screen">
+                <div class="instruction-header">
+                    <button class="back-btn" onclick="hideInstruction()">←</button>
+                    <div class="instruction-title">Инструкция по установке</div>
+                </div>
+                <div class="instruction-body">
+                    <p style="margin-bottom: 16px;">📦 Перед установкой приложения, пожалуйста, внимательно прочитайте инструкцию ниже.</p>
+                    <ol>
+                        <li>Откройте приложение «Настройки» на вашем iPhone.</li>
+                        <li>Нажмите на имя в верхней части экрана.</li>
+                        <li>Прокрутите вниз и выберите «Выйти». Затем выберите «Выйти, но не стирать данные».</li>
+                        <li>Сделайте скриншот из настроек, подтверждающий выход из аккаунта.</li>
+                        <li>Нажмите кнопку «Запросить корпоративный аккаунт» и отправьте скриншот в наш чат поддержки.</li>
+                        <li>После проверки вы получите ссылку для установки приложения через TestFlight или AltStore.</li>
+                    </ol>
+                    <p style="margin-top: 16px; color: var(--text-gray); font-size: 14px;">⏳ Время ожидания: обычно 5–15 минут.</p>
+                    <p style="margin-top: 8px; color: var(--text-gray); font-size: 14px;">❗ Здесь позже будет ваша инструкция — просто замените этот текст в коде.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модалка поддержки -->
+    <div class="modal-overlay" id="supportModal" onclick="if(event.target===this) closeSupport()">
+        <div class="modal-content">
+            <div class="modal-header" style="background: var(--primary-blue); padding: 16px 20px; border-radius: 20px 20px 0 0; margin: -24px -24px 16px -24px; color: white; position: static;">
+                <div>
+                    <div style="font-size: 18px; font-weight: 700;">Поддержка</div>
+                    <div style="font-size: 13px; opacity: 0.8;">обычно отвечаем быстро</div>
+                </div>
+                <button class="modal-close" style="background: rgba(255,255,255,0.2); color: white;" onclick="closeSupport()">✕</button>
+            </div>
+            <div class="support-chat" id="support-chat">
+                <div class="chat-msg-bot">Здравствуйте! Чем можем помочь? Выберите быстрый вопрос ниже или напишите свой.</div>
+            </div>
+            <div class="quick-questions">
+                <button class="quick-q" onclick="quickQuestion('Как установить приложение?')">Как установить приложение?</button>
+                <button class="quick-q" onclick="quickQuestion('Экранная задержка')">Экранная задержка</button>
+                <button class="quick-q" onclick="quickQuestion('Не работает скачивание')">Не работает скачивание</button>
+            </div>
+            <div class="support-input-row">
+                <input type="text" id="support-input" placeholder="Напишите свой вопрос...">
+                <button onclick="sendSupportMessage()">➤</button>
+            </div>
         </div>
     </div>
 
@@ -234,11 +284,334 @@
             tg.setBackgroundColor('#e8f4f8');
         }
 
+        const apps = [
+            { id: 1, name: 'Instagram', category: 'Соцсети', rating: 4.8, icon: '📷', color: '#e1306c', desc: 'Фото- и видеосоцсеть, удалённая из App Store в России. Позволяет делиться моментами и общаться.' },
+            { id: 2, name: 'Facebook', category: 'Соцсети', rating: 4.5, icon: '👥', color: '#1877f2', desc: 'Крупнейшая соцсеть, недоступная в российском App Store. Общение, группы, новости.' },
+            { id: 3, name: 'TikTok', category: 'Развлечения', rating: 4.7, icon: '🎵', color: '#000000', desc: 'Короткие видео, тренды и музыка. Удалён из App Store РФ.' },
+            { id: 4, name: 'Viber', category: 'Мессенджеры', rating: 4.6, icon: '💜', color: '#7360f2', desc: 'Мессенджер с звонками и сообщениями. Удалён из российского App Store.' },
+            { id: 5, name: 'Discord', category: 'Мессенджеры', rating: 4.9, icon: '🎮', color: '#5865f2', desc: 'Голосовые каналы и чаты для геймеров и сообществ. Пропал из App Store РФ.' },
+            { id: 6, name: 'PayPal', category: 'Финансы', rating: 4.4, icon: '💳', color: '#003087', desc: 'Международные платежи. Удалён из App Store в России.' },
+            { id: 7, name: 'Notion', category: 'Работа', rating: 4.8, icon: '📝', color: '#000000', desc: 'Заметки, базы данных и проекты. Пропал из российского App Store.' },
+            { id: 8, name: 'LinkedIn', category: 'Работа', rating: 4.3, icon: '💼', color: '#0a66c2', desc: 'Профессиональная сеть. Удалена из App Store РФ.' },
+            { id: 9, name: 'Twitter (X)', category: 'Соцсети', rating: 4.5, icon: '🐦', color: '#1da1f2', desc: 'Микроблоги и новости. Удалён из российского App Store.' },
+            { id: 10, name: 'Spotify', category: 'Развлечения', rating: 4.7, icon: '🎧', color: '#1db954', desc: 'Музыкальный стриминг. Недоступен в App Store РФ.' },
+            { id: 11, name: 'Netflix', category: 'Развлечения', rating: 4.6, icon: '🎬', color: '#e50914', desc: 'Фильмы и сериалы. Удалён из App Store в России.' },
+            { id: 12, name: 'WhatsApp', category: 'Мессенджеры', rating: 4.8, icon: '💚', color: '#25d366', desc: 'Мессенджер с сообщениями и звонками. Недоступен в российском App Store.' },
+            { id: 13, name: 'Signal', category: 'Мессенджеры', rating: 4.9, icon: '🔒', color: '#3a76f0', desc: 'Защищённый мессенджер. Пропал из App Store РФ.' },
+            { id: 14, name: 'Telegram X', category: 'Мессенджеры', rating: 4.7, icon: '✈️', color: '#0088cc', desc: 'Экспериментальная версия Telegram. Удалена из App Store.' },
+            { id: 15, name: 'Shazam', category: 'Развлечения', rating: 4.6, icon: '🎵', color: '#0088ff', desc: 'Распознавание музыки. Пропал из российского App Store.' },
+            { id: 16, name: 'Duolingo', category: 'Работа', rating: 4.8, icon: '🦉', color: '#58cc02', desc: 'Изучение языков. Удалён из App Store РФ.' },
+            { id: 17, name: 'Tinder', category: 'Соцсети', rating: 4.4, icon: '🔥', color: '#fe3c72', desc: 'Знакомства. Пропал из российского App Store.' },
+            { id: 18, name: 'Amazon', category: 'Финансы', rating: 4.5, icon: '📦', color: '#ff9900', desc: 'Онлайн-магазин. Удалён из App Store РФ.' },
+            { id: 19, name: 'Zoom', category: 'Работа', rating: 4.6, icon: '📹', color: '#2d8cff', desc: 'Видеоконференции. Недоступен в российском App Store.' },
+            { id: 20, name: 'Pinterest', category: 'Соцсети', rating: 4.7, icon: '📌', color: '#e60023', desc: 'Визуальные идеи и вдохновение. Удалён из App Store РФ.' }
+        ];
+
+        // --- ДЕКОРАТИВНЫЕ ОТЗЫВЫ (не сохраняются) ---
+        const decorativeReviews = {
+            1: [
+                { user: '@alex_92', rating: 5, text: 'Наконец-то нашёл как установить! Всё работает, спасибо.' },
+                { user: 'Мария К.', rating: 4, text: 'Работает стабильно, но иногда подвисает лента.' },
+                { user: 'Dmitry', rating: 5, text: 'Лучший сервис для установки удалённых приложений.' }
+            ],
+            2: [
+                { user: '@nikita_dev', rating: 4, text: 'Установилось с первого раза, всё ок.' },
+                { user: 'Анна', rating: 5, text: 'Очень удобно, что есть инструкция. Всё понятно.' }
+            ],
+            3: [
+                { user: '@timur', rating: 5, text: 'TikTok снова со мной! Спасибо огромное.' },
+                { user: 'Ольга', rating: 4, text: 'Видео грузятся, но иногда бывают лаги.' },
+                { user: 'Даниил', rating: 5, text: 'Ставлю 5, всё работает как надо.' }
+            ],
+            4: [
+                { user: '@sasha_v', rating: 4, text: 'Вайбер поставил через бота, работает хорошо.' },
+                { user: 'Елена', rating: 5, text: 'Звонки идут, сообщения приходят, рекомендую.' }
+            ],
+            5: [
+                { user: 'Максим', rating: 5, text: 'Discord - топ! Голосовые каналы работают.' },
+                { user: '@kate_ops', rating: 4, text: 'Установилось быстро, спасибо за инструкцию.' },
+                { user: 'Илья', rating: 5, text: 'Наконец-то могу общаться с друзьями в дискорде!' }
+            ],
+            6: [
+                { user: 'Наталья', rating: 4, text: 'PayPal работает, но не всегда стабильно.' },
+                { user: '@mikhail', rating: 3, text: 'Иногда вылетает, но в целом ок.' }
+            ],
+            7: [
+                { user: '@anna_notes', rating: 5, text: 'Notion - незаменимая вещь для работы. Спасибо!' },
+                { user: 'Сергей', rating: 4, text: 'Синхронизация работает, всё супер.' }
+            ],
+            8: [
+                { user: 'Андрей', rating: 4, text: 'LinkedIn нужен для работы, хорошо что есть тут.' },
+                { user: '@victoria', rating: 5, text: 'Установила, всё отлично работает.' }
+            ],
+            9: [
+                { user: '@sergey_k', rating: 4, text: 'Твиттер поставил, лента грузится.' },
+                { user: 'Полина', rating: 5, text: 'Отличная замена, спасибо! ' }
+            ],
+            10: [
+                { user: 'Кирилл', rating: 5, text: 'Spotify - лучший! Музыка играет без проблем.' },
+                { user: '@vika', rating: 4, text: 'Плейлисты работают, звук отличный.' }
+            ],
+            11: [
+                { user: 'Денис', rating: 4, text: 'Netflix снова доступен, фильмы грузятся.' },
+                { user: 'Алиса', rating: 5, text: 'Смотрю сериалы, всё отлично, спасибо!' }
+            ],
+            12: [
+                { user: '@ivan_wa', rating: 5, text: 'WhatsApp установил, всё работает.' },
+                { user: 'Екатерина', rating: 4, text: 'Звонки идут, сообщения приходят, всё ок.' }
+            ],
+            13: [
+                { user: 'Артём', rating: 5, text: 'Signal - безопасный мессенджер, хорошо что есть.' },
+                { user: '@olga_sec', rating: 4, text: 'Работает, но иногда долго подключается.' }
+            ],
+            14: [
+                { user: 'Роман', rating: 4, text: 'Telegram X интерфейс прикольный, летает.' },
+                { user: '@vlad', rating: 5, text: 'Стабильно, быстро, рекомендую.' }
+            ],
+            15: [
+                { user: 'Дарья', rating: 5, text: 'Shazam снова со мной, распознаёт музыку.' },
+                { user: '@maxim', rating: 4, text: 'Работает, но иногда не находит треки.' }
+            ],
+            16: [
+                { user: 'Алина', rating: 5, text: 'Duolingo - мотивация учить языки!' },
+                { user: '@yulia_lang', rating: 4, text: 'Уроки работают, прогресс сохраняется.' }
+            ],
+            17: [
+                { user: 'Станислав', rating: 4, text: 'Tinder поставил, анкеты грузятся.' },
+                { user: '@liza', rating: 5, text: 'Всё работает, спасибо!' }
+            ],
+            18: [
+                { user: 'Виктор', rating: 4, text: 'Amazon установил, заказы оформляются.' },
+                { user: '@nina', rating: 3, text: 'Работает, но интерфейс не очень удобный.' }
+            ],
+            19: [
+                { user: 'Алексей', rating: 5, text: 'Zoom для работы - незаменимая вещь!' },
+                { user: '@marina_zoom', rating: 4, text: 'Конференции работают, качество хорошее.' }
+            ],
+            20: [
+                { user: 'Оксана', rating: 5, text: 'Pinterest - вдохновение каждый день!' },
+                { user: '@artur', rating: 4, text: 'Идеи подгружаются, всё ок.' }
+            ]
+        };
+
+        let currentCategory = null;
+        let currentSearch = '';
+        let currentAppId = null;
+        let currentModalRating = 0;
+
+        function renderAppCards(container, list) {
+            if (!list.length) {
+                container.innerHTML = '<p style="text-align:center; color: var(--text-gray); width: 100%; padding: 20px;">Ничего не найдено</p>';
+                return;
+            }
+            container.innerHTML = list.map(app => `
+                <div class="app-card" onclick="openAppModal(${app.id})">
+                    <div class="app-rating">⭐ ${app.rating}</div>
+                    <div class="app-icon" style="background: ${app.color}; color: white;">${app.icon}</div>
+                    <div class="app-name">${app.name}</div>
+                    <div class="app-category">${app.category}</div>
+                    <div class="app-open">Открыть <span>→</span></div>
+                </div>
+            `).join('');
+        }
+
+        function filterApps(category, search) {
+            return apps.filter(app => {
+                const matchCat = !category || category === 'Все' || app.category === category;
+                const matchSearch = !search || app.name.toLowerCase().includes(search.toLowerCase()) || app.category.toLowerCase().includes(search.toLowerCase());
+                return matchCat && matchSearch;
+            });
+        }
+
+        function renderHome() {
+            const filtered = filterApps(currentCategory, currentSearch);
+            renderAppCards(document.getElementById('app-grid-home'), filtered);
+        }
+
+        function handleSearch(value, source) {
+            currentSearch = value;
+            if (source === 'home') {
+                document.getElementById('search-input-search').value = value;
+                renderHome();
+            } else {
+                document.getElementById('search-input-home').value = value;
+                const filtered = filterApps(null, value);
+                const container = document.getElementById('search-results');
+                container.innerHTML = filtered.map(app => `
+                    <div class="app-card" style="flex-direction: row; align-items: center; gap: 12px; padding: 12px;" onclick="openAppModal(${app.id})">
+                        <div class="app-icon" style="width: 44px; height: 44px; font-size: 22px; margin: 0; background: ${app.color}; color: white;">${app.icon}</div>
+                        <div style="flex:1;">
+                            <div class="app-name" style="font-size: 15px;">${app.name}</div>
+                            <div class="app-category" style="margin: 0;">${app.category}</div>
+                        </div>
+                        <div style="color: #d48806; font-size: 13px; font-weight: 700;">⭐ ${app.rating}</div>
+                    </div>
+                `).join('') || '<p style="text-align:center; color: var(--text-gray);">Ничего не найдено</p>';
+            }
+        }
+
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            currentSearch = '';
+            document.getElementById('search-input-home').value = '';
+            document.getElementById('search-input-search').value = '';
+            renderHome();
+        }
+
+        function openAppModal(id) {
+            const app = apps.find(a => a.id === id);
+            if (!app) return;
+            currentAppId = id;
+            currentModalRating = 0;
+
+            document.getElementById('modalTitle').textContent = app.name;
+            document.getElementById('modalCat').textContent = app.category + ' · ⭐ ' + app.rating;
+            document.getElementById('modalDesc').textContent = app.desc;
+            const iconEl = document.getElementById('modalIcon');
+            iconEl.textContent = app.icon;
+            iconEl.style.background = app.color;
+            iconEl.style.color = 'white';
+
+            renderAppReviews(id);
+            resetStars();
+            document.getElementById('review-text').value = '';
+            document.getElementById('app-main-screen').style.display = 'block';
+            document.getElementById('instruction-screen').classList.remove('active');
+            document.getElementById('appModal').classList.add('open');
+        }
+
+        function closeAppModal() {
+            document.getElementById('appModal').classList.remove('open');
+            currentAppId = null;
+        }
+
+        function renderAppReviews(appId) {
+            const reviews = decorativeReviews[appId] || [];
+            const container = document.getElementById('app-reviews-list');
+            if (!reviews.length) {
+                container.innerHTML = '<p style="color: var(--text-gray); font-size: 14px;">Пока нет отзывов. Будьте первым!</p>';
+                return;
+            }
+            container.innerHTML = reviews.map(r => `
+                <div class="review-item">
+                    <div class="review-header">
+                        <div class="review-user">${r.user}</div>
+                        <div class="review-stars">${'⭐'.repeat(r.rating)}</div>
+                    </div>
+                    <div class="review-text">${r.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function setModalRating(val) {
+            currentModalRating = val;
+            document.querySelectorAll('#stars-input .star-input').forEach((star, i) => {
+                star.classList.toggle('active', i < val);
+            });
+        }
+
+        function resetStars() {
+            currentModalRating = 0;
+            document.querySelectorAll('#stars-input .star-input').forEach(s => s.classList.remove('active'));
+        }
+
+        function submitReview() {
+            const text = document.getElementById('review-text').value.trim();
+            if (currentModalRating === 0) {
+                alert('Поставьте оценку (звёзды)');
+                return;
+            }
+            if (!text) {
+                alert('Напишите текст отзыва');
+                return;
+            }
+            // Ничего не сохраняем — просто показываем сообщение
+            resetStars();
+            document.getElementById('review-text').value = '';
+            alert('Спасибо! Ваш отзыв отправлен на модерацию.');
+        }
+
+        function showInstruction() {
+            document.getElementById('app-main-screen').style.display = 'none';
+            document.getElementById('instruction-screen').classList.add('active');
+        }
+
+        function hideInstruction() {
+            document.getElementById('instruction-screen').classList.remove('active');
+            document.getElementById('app-main-screen').style.display = 'block';
+        }
+
+        function openSupport() {
+            document.getElementById('supportModal').classList.add('open');
+            const chat = document.getElementById('support-chat');
+            if (chat.children.length === 0) {
+                chat.innerHTML = '<div class="chat-msg-bot">Здравствуйте! Чем можем помочь? Выберите быстрый вопрос ниже или напишите свой.</div>';
+            }
+        }
+
+        function closeSupport() {
+            document.getElementById('supportModal').classList.remove('open');
+        }
+
+        function addChatMessage(text, isBot) {
+            const chat = document.getElementById('support-chat');
+            const div = document.createElement('div');
+            div.className = 'chat-msg-bot';
+            if (!isBot) {
+                div.style.background = 'var(--primary-blue)';
+                div.style.color = 'white';
+                div.style.marginLeft = 'auto';
+                div.style.borderRadius = '14px 14px 4px 14px';
+            }
+            div.textContent = text;
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function quickQuestion(q) {
+            addChatMessage(q, false);
+            setTimeout(() => {
+                let answer = 'Мы получили ваш вопрос, скоро ответим!';
+                if (q.includes('установить')) answer = 'Чтобы установить приложение: зайдите на сайт разработчика, скачайте .ipa файл и установите через AltStore или Sideloadly.';
+                if (q.includes('задержка')) answer = 'Экранная задержка — это нормально при первом запуске. Подождите 10–15 секунд.';
+                if (q.includes('скачивание')) answer = 'Попробуйте отключить VPN или сменить сеть. Если не помогает — напишите нам ещё раз.';
+                addChatMessage(answer, true);
+            }, 800);
+        }
+
+        function sendSupportMessage() {
+            const input = document.getElementById('support-input');
+            const val = input.value.trim();
+            if (!val) return;
+            addChatMessage(val, false);
+            input.value = '';
+            setTimeout(() => {
+                addChatMessage('Спасибо! Ваше сообщение передано оператору. Обычно отвечаем в течение 5–10 минут.', true);
+            }, 1000);
+        }
+
+        function loadAllReviews() {
+            const container = document.getElementById('all-reviews-list');
+            let html = '';
+            apps.forEach(app => {
+                const reviews = decorativeReviews[app.id] || [];
+                if (reviews.length) {
+                    html += `<div style="margin-bottom: 20px;"><h4 style="margin-bottom: 8px; font-size: 15px;">${app.icon} ${app.name}</h4>`;
+                    reviews.slice(0, 2).forEach(r => {
+                        html += `<div class="review-item"><div class="review-header"><div class="review-user">${r.user}</div><div class="review-stars">${'⭐'.repeat(r.rating)}</div></div><div class="review-text">${r.text}</div></div>`;
+                    });
+                    html += '</div>';
+                }
+            });
+            container.innerHTML = html || '<p style="color: var(--text-gray); text-align: center;">Пока нет отзывов.</p>';
+        }
+
         function switchTab(tabId, element) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabId).classList.add('active');
             element.classList.add('active');
+            if (tabId === 'menu') loadAllReviews();
         }
 
         function toggleMenu() {
@@ -257,33 +630,8 @@
             document.getElementById('tab-' + tabId).classList.add('active');
         }
 
-        function openAppModal(name, cat, rating, icon, bgColor, desc) {
-            document.getElementById('modalTitle').textContent = name;
-            document.getElementById('modalCat').textContent = cat + ' · ⭐ ' + rating;
-            document.getElementById('modalDesc').textContent = desc;
-            const iconEl = document.getElementById('modalIcon');
-            iconEl.textContent = icon;
-            iconEl.style.background = bgColor;
-            iconEl.style.color = 'white';
-            document.getElementById('appModal').classList.add('open');
-        }
-
-        function closeAppModal() {
-            document.getElementById('appModal').classList.remove('open');
-        }
-
-        function setRating(val) {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((star, index) => {
-                if (index < val) {
-                    star.style.background = '#fff7e6';
-                    star.style.color = '#d48806';
-                } else {
-                    star.style.background = '#f0f0f0';
-                    star.style.color = 'inherit';
-                }
-            });
-        }
+        renderHome();
+        loadAllReviews();
     </script>
 </body>
 </html>
